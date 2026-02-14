@@ -10,62 +10,95 @@ body{
 
 .card{
   background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(10px);
-  padding:30px;
-  border-radius:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  backdrop-filter:blur(12px);
+  padding:35px 25px;
+  border-radius:25px;
+  box-shadow:0 15px 50px rgba(0,0,0,0.6);
   text-align:center;
   animation:fadeIn 1s ease;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.02);
 }
 
 .logo{
-  font-size:28px;font-weight:bold;margin-bottom:10px;color:#ffd700;
+  font-size:30px;font-weight:bold;margin-bottom:5px;color:#ffd700;text-shadow:1px 1px 3px rgba(0,0,0,0.4);
+}
+
+.subtitle{
+  font-size:20px;
+  margin-bottom:15px;
+  color:#00ffcc;
+  font-weight:bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Badge Verified */
+.verified-badge{
+  display:inline-block;
+  background:linear-gradient(90deg,#00ffcc,#00bfa5);
+  color:#000;
+  font-weight:bold;
+  padding:5px 12px;
+  border-radius:20px;
+  margin-bottom:15px;
+  animation:badgePulse 1.5s infinite;
+}
+
+@keyframes badgePulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.1);}
 }
 
 input{
-  width:100%;padding:12px;margin:8px 0;border:none;border-radius:10px;outline:none;font-size:14px;
+  width:100%;padding:14px;margin:8px 0;border:none;border-radius:12px;outline:none;font-size:14px;
 }
 
 button{
-  width:100%;padding:12px;margin-top:15px;border:none;border-radius:10px;background:linear-gradient(90deg,#ff512f,#dd2476);color:white;font-size:16px;font-weight:bold;cursor:pointer;transition:0.3s;
+  width:100%;padding:14px;margin-top:15px;border:none;border-radius:12px;background:linear-gradient(90deg,#ff512f,#dd2476);color:white;font-size:16px;font-weight:bold;cursor:pointer;transition:all 0.3s;
 }
 
-button:hover{transform:scale(1.05);}
+button:hover{
+  transform:translateY(-3px) scale(1.05);
+  box-shadow:0 8px 20px rgba(0,0,0,0.4);
+}
+
+.trust-msg{
+  font-size:13px;
+  margin-top:15px;
+  opacity:0.85;
+  color:#fff;
+  line-height:1.5;
+  text-align:center;
+}
+
+.countdown{
+  margin-top:12px;
+  font-size:14px;
+  color:#ffd700;
+  font-weight:bold;
+}
 
 .modal{
-  position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);
+  position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);
   display:none;align-items:center;justify-content:center;z-index:1000;
 }
 
 .modal.active{display:flex;}
 
 .modal-content{
-  background:#1c1c1c;color:#fff;padding:25px;border-radius:15px;text-align:center;width:90%;max-width:400px;position:relative;
+  background:#1c1c1c;color:#fff;padding:30px;border-radius:20px;text-align:center;width:90%;max-width:420px;position:relative;
+  box-shadow:0 10px 50px rgba(0,0,0,0.5);
+  animation:fadeIn 0.5s ease;
 }
 
 .modal-content h2{margin-bottom:10px;}
-.modal-content p{margin-bottom:20px;opacity:0.8;}
-
-.progress-container{
-  background:rgba(255,255,255,0.2);
-  border-radius:10px;
-  overflow:hidden;
-  margin-bottom:15px;
-}
-
-.progress-bar{
-  height:20px;
-  width:0%;
-  background:linear-gradient(90deg,#00ffcc,#00bfa5);
-  text-align:center;
-  line-height:20px;
-  color:#000;
-  font-weight:bold;
-  transition:width 0.5s ease;
-}
+.modal-content p{margin-bottom:20px;opacity:0.9;}
 
 .close-btn{
-  position:absolute;top:10px;right:15px;background:#ff4757;border:none;color:#fff;font-size:16px;padding:5px 10px;border-radius:8px;cursor:pointer;
+  position:absolute;top:10px;right:15px;background:#ff4757;border:none;color:#fff;font-size:16px;padding:6px 12px;border-radius:10px;cursor:pointer;
 }
 
 .logout-btn{
@@ -78,6 +111,26 @@ button:hover{transform:scale(1.05);}
   background:#2575fc;
 }
 
+.leaderboard{
+  list-style:none;
+  margin-top:15px;
+  max-height:200px;
+  overflow-y:auto;
+  padding-left:0;
+  text-align:left;
+}
+
+.leaderboard li{
+  padding:8px 12px;
+  margin-bottom:6px;
+  background:rgba(255,255,255,0.1);
+  border-radius:10px;
+  display:flex;justify-content:space-between;
+  font-weight:bold;
+  color:#ffd700;
+  font-size:14px;
+}
+
 .floating-chat{
   position:fixed;
   bottom:20px;right:20px;
@@ -86,11 +139,12 @@ button:hover{transform:scale(1.05);}
   border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;
-  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  box-shadow:0 5px 20px rgba(0,0,0,0.35);
   transition:0.3s;
   z-index:999;
 }
 
 .floating-chat:hover{transform:scale(1.1);}
 .floating-chat img{width:30px;height:30px;}
+
 @keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
