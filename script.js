@@ -1,100 +1,62 @@
-const loginSection = document.getElementById("loginSection");
-const mainSection = document.getElementById("mainSection");
+// LOGIN
+const loginBtn = document.getElementById("loginBtn");
 const usernameInput = document.getElementById("usernameInput");
-const displayUser = document.getElementById("displayUser");
-const saldoText = document.getElementById("saldo");
-const claimBtn = document.getElementById("claimBtn");
-const timerText = document.getElementById("timer");
-const transactionText = document.getElementById("transactionId");
-const totalClaimText = document.getElementById("totalClaim");
 const liveFeed = document.getElementById("liveFeed");
 
-let saldo = 0;
-let lastClaim = 0;
-let username = "";
+// POPUP
+const popup = document.getElementById("popup");
+const closePopup = document.getElementById("closePopup");
 
-function login() {
-  username = usernameInput.value.trim();
-  if (username === "") {
-    alert("Masukkan username dulu!");
-    return;
-  }
+// Simulasi data live feed
+const members = ["rudi99","bima21","agus88","andi77","leo123"];
 
-  localStorage.setItem("username", username);
-  displayUser.innerText = username;
+loginBtn.addEventListener("click", () => {
+  const username = usernameInput.value.trim();
+  if (!username) { alert("Masukkan username!"); return; }
 
-  loginSection.classList.add("hidden");
-  mainSection.classList.remove("hidden");
+  // Tampilkan popup claim
+  showPopup(`Freebet 15.000 berhasil diklaim oleh ${username}!`);
 
-  loadUserData();
-}
-
-function loadUserData() {
-  saldo = localStorage.getItem(username + "_saldo")
-    ? parseInt(localStorage.getItem(username + "_saldo"))
-    : 0;
-
-  lastClaim = localStorage.getItem(username + "_lastClaim")
-    ? parseInt(localStorage.getItem(username + "_lastClaim"))
-    : 0;
-
-  saldoText.innerText = "Rp " + saldo.toLocaleString();
-}
-
-totalClaimText.innerText =
-  Math.floor(Math.random() * 200 + 100) + " Member";
-
-function updateTimer() {
-  const now = Date.now();
-  const diff = 86400000 - (now - lastClaim);
-
-  if (diff <= 0) {
-    timerText.innerText = "Anda bisa claim sekarang!";
-    claimBtn.disabled = false;
-  } else {
-    claimBtn.disabled = true;
-    const hours = Math.floor(diff / 3600000);
-    const minutes = Math.floor((diff % 3600000) / 60000);
-    const seconds = Math.floor((diff % 60000) / 1000);
-    timerText.innerText =
-      `Freebet berikutnya dalam ${hours}j ${minutes}m ${seconds}d`;
-  }
-}
-
-setInterval(updateTimer, 1000);
-
-claimBtn.addEventListener("click", () => {
-  const now = Date.now();
-  if (now - lastClaim >= 86400000) {
-    saldo += 15000;
-    lastClaim = now;
-
-    localStorage.setItem(username + "_saldo", saldo);
-    localStorage.setItem(username + "_lastClaim", lastClaim);
-
-    saldoText.innerText = "Rp " + saldo.toLocaleString();
-
-    const trxId = "PB-" + now;
-    transactionText.innerText = "ID Transaksi: " + trxId;
-
-    alert("Freebet 15.000 berhasil diklaim!");
-    updateTimer();
-  }
+  // Update live feed
+  const randomMember = members[Math.floor(Math.random() * members.length)];
+  liveFeed.textContent = `🎉 Member ${randomMember} berhasil claim Rp 15.000`;
 });
 
-const names = ["agus88", "andika77", "rudi99", "bima21", "rizky10"];
-
-function generateFeed() {
-  const name = names[Math.floor(Math.random() * names.length)];
-  const div = document.createElement("div");
-  div.classList.add("feed-item");
-  div.innerText =
-    `🎉 Member ${name} berhasil claim Rp 15.000`;
-  liveFeed.prepend(div);
-
-  if (liveFeed.children.length > 6) {
-    liveFeed.removeChild(liveFeed.lastChild);
-  }
+function showPopup(message) {
+  popup.classList.remove("hidden");
+  document.getElementById("popupText").textContent = message;
 }
 
-setInterval(generateFeed, 4000);
+closePopup.addEventListener("click", () => {
+  popup.classList.add("hidden");
+});
+
+// BACKGROUND ANIMASI SEDERHANA
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+for (let i=0;i<100;i++) {
+  particles.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*3+1});
+}
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.y -= 0.5;
+    if(p.y<0)p.y=canvas.height;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle="#a855f7";
+    ctx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener("resize",()=>{
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
