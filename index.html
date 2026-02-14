@@ -1,70 +1,29 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FREEBET 15.000 PINTARBOLA💡 - Dashboard Premium</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PINTARBOLA - Claim Bonus Freebet</title>
+  <link rel="stylesheet" href="../src/css/style.css">
 </head>
 <body>
+  <header>
+    <h1>PINTARBOLA</h1>
+    <p>Claim Bonus Freebet untuk member</p>
+  </header>
 
-<canvas id="bgCanvas"></canvas>
+  <main>
+    <section id="bonus-section">
+      <h2>Claim Bonus Freebet</h2>
+      <form id="bonusForm">
+        <input type="text" id="memberName" placeholder="Nama Member" required>
+        <button type="submit">Claim Bonus</button>
+      </form>
+      <p id="bonusMessage"></p>
+    </section>
+  </main>
 
-<div class="container">
-
-  <h1 class="title">FREEBET 15.000 PINTARBOLA💡</h1>
-
-  <!-- LOGIN -->
-  <div class="card login-card" id="loginCard">
-    <p class="subtitle">Member Login</p>
-    <input type="text" id="usernameInput" placeholder="Masukkan Username Member">
-    <button id="loginBtn">LOGIN SEKARANG</button>
-  </div>
-
-  <!-- DASHBOARD -->
-  <div class="dashboard hidden" id="dashboardCard">
-
-    <div class="grid-container">
-
-      <!-- MEMBER INFO -->
-      <div class="card member-info-card">
-        <h2 id="displayUsername"></h2>
-        <span id="statusBadge"></span>
-        <p id="balanceDisplay">Saldo Freebet: Rp 0</p>
-      </div>
-
-      <!-- CLAIM INFO -->
-      <div class="card claim-info-card">
-        <p>Total Claim Hari Ini: <span id="totalClaim">0</span> Member</p>
-        <p id="timer">Freebet siap diklaim!</p>
-        <button id="claimBtn">CLAIM FREEBET 15.000</button>
-        <p id="transactionId"></p>
-      </div>
-
-      <!-- LIVE FEED & CS -->
-      <div class="card live-feed-card">
-        <h3>Live Claim Feed</h3>
-        <div id="liveFeed" class="liveFeedScroll"></div>
-        <a href="https://pintarkrn.com/" target="_blank" class="cs-link">Hubungi CS PINTARBOLA💡</a>
-      </div>
-
-    </div>
-
-    <button id="logoutBtn" class="logout-btn">Logout</button>
-  </div>
-
-  <!-- POPUP -->
-  <div id="popup" class="popup hidden">
-    <p id="popupText"></p>
-    <button id="closePopup">Tutup</button>
-  </div>
-
-  <div class="footer">
-    Halaman ini merupakan tampilan resmi sistem claim FREEBET 15.000 PINTARBOLA💡. Sistem mencatat setiap aktivitas claim secara otomatis sesuai ketentuan member aktif.
-  </div>
-
-</div>
-
-<script src="script.js"></script>
+  <script src="../src/js/bonus.js"></script>
+  <script src="../src/js/main.js"></script>
 </body>
 </html>
