@@ -1,17 +1,25 @@
+// ===== ELEMENTS =====
 const form = document.getElementById('bonusForm');
 const memberInput = document.getElementById('memberName');
-const bonusMessage = document.getElementById('bonusMessage');
-const chatAdmin = document.getElementById('chatAdmin');
 const claimBtn = document.getElementById('claimBtn');
 const countdownEl = document.getElementById('countdown');
-const coinAnimation = document.getElementById('coinAnimation');
+
+const modal = document.getElementById('modal');
+const modalMessage = document.getElementById('modalMessage');
+const coinContainer = document.getElementById('coinContainer');
+const chatAdmin = document.getElementById('chatAdmin');
+const closeModal = document.getElementById('closeModal');
+
 const historyTable = document.getElementById('historyTable');
 const progressBar = document.getElementById('progressBar');
 
+const coinSound = document.getElementById('coinSound');
+
+// ===== STORAGE =====
 let nextClaimTime = new Date(localStorage.getItem('nextClaim') || 0);
 let totalBonus = parseInt(localStorage.getItem('totalBonus')) || 0;
 
-// Update countdown
+// ===== COUNTDOWN =====
 function updateCountdown() {
   const now = new Date();
   const diff = nextClaimTime - now;
@@ -29,7 +37,7 @@ function updateCountdown() {
 }
 setInterval(updateCountdown, 1000);
 
-// Update history table
+// ===== HISTORY =====
 function updateHistory(memberName){
   const row = historyTable.insertRow(-1);
   const dateCell = row.insertCell(0);
@@ -42,52 +50,58 @@ function updateHistory(memberName){
   statusCell.textContent = "Sukses";
 }
 
-// Update progress bar
+// ===== PROGRESS BAR =====
 function updateProgress(){
-  const percentage = Math.min(totalBonus / 100000 * 100, 100); // asumsi max 100.000
+  const percentage = Math.min(totalBonus / 100000 * 100, 100);
   progressBar.style.width = percentage + "%";
 }
-
 updateProgress();
 
+// ===== COIN ANIMATION =====
+function spawnCoins(num=6){
+  coinContainer.innerHTML = '';
+  for(let i=0;i<num;i++){
+    const coin = document.createElement('div');
+    coin.classList.add('coin');
+    coin.style.left = `${10 + i*20}px`;
+    coin.textContent = '💰';
+    coinContainer.appendChild(coin);
+  }
+  coinSound.play();
+}
+
+// ===== CLAIM BONUS =====
 form.addEventListener('submit', function(e){
   e.preventDefault();
-
   const memberName = memberInput.value.trim();
   if(!memberName){
-    bonusMessage.textContent = "Silakan masukkan nama member!";
-    bonusMessage.style.color = "red";
+    alert("Silakan masukkan nama member!");
     return;
   }
 
-  // Notifikasi real-time
-  bonusMessage.textContent = `Selamat ${memberName}, bonus 15.000 berhasil diklaim! 🎉`;
-  bonusMessage.style.color = "#00ff00";
-
-  // Animasi koin
-  coinAnimation.classList.remove('hidden');
-  setTimeout(()=> coinAnimation.classList.add('hidden'), 1000);
-
-  // Simpan next claim
+  // SET NEXT CLAIM 24 JAM
   nextClaimTime = new Date();
   nextClaimTime.setHours(nextClaimTime.getHours() + 24);
   localStorage.setItem('nextClaim', nextClaimTime);
 
-  // Update total bonus & progress
+  // UPDATE BONUS & PROGRESS
   totalBonus += 15000;
   localStorage.setItem('totalBonus', totalBonus);
   updateProgress();
 
-  // Update history
+  // UPDATE HISTORY
   updateHistory(memberName);
 
-  // Tampilkan tombol chat admin
+  // SHOW MODAL
+  modalMessage.textContent = `Selamat ${memberName}, bonus 15.000 berhasil diklaim! 🎉`;
+  spawnCoins();
   chatAdmin.href = `https://pintarkrn.com/livechat?message=${encodeURIComponent(`Member ${memberName} claim bonus 15000`)}`;
   chatAdmin.classList.remove('hidden');
+  modal.classList.remove('hidden');
 
-  // Disable tombol klaim
   claimBtn.disabled = true;
-
-  // Reset form
   memberInput.value = '';
 });
+
+// ===== CLOSE MODAL =====
+closeModal.addEventListener('click', () => modal.classList.add('hidden'));
