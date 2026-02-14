@@ -1,52 +1,101 @@
-/* ===== GLOBAL ===== */
+/* ===== GLOBAL & BACKGROUND FUTURISTIK ===== */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(to right, #111, #222);
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  overflow: hidden;
+
+  /* Futuristic Background */
+  background: radial-gradient(circle at top, #0a0a0a 0%, #111 80%);
 }
 
-.container {
-  text-align: center;
+body::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0,255,255,0.05) 0px,
+    rgba(0,255,255,0.05) 1px,
+    transparent 1px,
+    transparent 20px
+  );
+  animation: moveGrid 20s linear infinite;
+  z-index: -1;
+}
+
+body::after {
+  content: "";
+  position: absolute;
   width: 100%;
-  max-width: 450px;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0,255,255,0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: moveParticles 30s linear infinite;
+  z-index: -1;
+}
+
+@keyframes moveGrid {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(-100px,-100px); }
+}
+
+@keyframes moveParticles {
+  0% { background-position: 0 0; }
+  100% { background-position: -100px 100px; }
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  z-index: 1;
+  position: relative;
 }
 
 /* ===== HEADER ===== */
 header h1 {
-  color: #ffcc00;
+  color: #00ffff;
   margin-bottom: 5px;
+  text-shadow: 0 0 10px #00ffff;
 }
 
 header p {
+  color: #aaa;
   margin-top: 0;
-  font-size: 1.1em;
-  color: #ddd;
 }
 
-/* ===== BONUS BOX ===== */
-.bonus-box {
-  background-color: #1a1a1a;
+/* ===== BONUS CARD ===== */
+.bonus-card {
+  background-color: rgba(30,30,30,0.85);
   padding: 30px 20px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(0,255,255,0.3);
   margin-top: 20px;
+  transition: all 0.3s ease;
 }
 
-.bonus-box h2, .bonus-box h3 {
-  color: #ffcc00;
+.bonus-card:hover {
+  box-shadow: 0 0 50px rgba(0,255,255,0.6);
+}
+
+.bonus-card h2, .bonus-card h3 {
+  color: #00ffff;
   margin-bottom: 15px;
+  text-shadow: 0 0 5px #00ffff;
 }
 
 form input {
   padding: 12px;
-  width: 65%;
-  border-radius: 5px;
+  width: 60%;
+  border-radius: 8px;
   border: none;
   margin-bottom: 15px;
 }
@@ -54,94 +103,162 @@ form input {
 form button {
   padding: 12px 20px;
   border: none;
-  border-radius: 5px;
-  background-color: #ffcc00;
+  border-radius: 8px;
+  background-color: #00ffff;
   color: #000;
   font-weight: bold;
   cursor: pointer;
   margin-left: 10px;
+  transition: 0.3s;
 }
 
 form button:hover {
-  background-color: #ffaa00;
+  background-color: #00aaff;
+  box-shadow: 0 0 15px #00ffff;
 }
 
-/* ===== MESSAGE & COUNTDOWN ===== */
-#bonusMessage {
-  margin-top: 15px;
-  font-size: 1.1em;
-}
-
+/* ===== COUNTDOWN ===== */
 #countdown {
   margin-top: 10px;
-  font-size: 0.95em;
+  font-size: 1em;
   color: #aaa;
 }
 
-/* ===== COIN ANIMATION ===== */
-#coinAnimation {
-  font-size: 2.5em;
-  animation: bounce 1s ease forwards;
-  margin-top: 15px;
+/* ===== MODAL ===== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
 }
 
-@keyframes bounce {
-  0% { transform: translateY(-50px); opacity: 0; }
-  50% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-20px); opacity: 0; }
+.modal-content {
+  background-color: rgba(20,20,20,0.95);
+  padding: 30px 20px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 380px;
+  box-shadow: 0 0 40px rgba(0,255,255,0.5);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.modal-content h3 {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.modal-content p {
+  margin: 15px 0;
+  font-size: 1.1em;
+}
+
+/* ===== COIN ANIMATION ===== */
+#coinContainer {
+  position: relative;
+  height: 60px;
+  margin: 15px 0;
+}
+
+.coin {
+  position: absolute;
+  font-size: 2em;
+  top: -50px;
+  animation: fall 1s ease forwards;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+@keyframes fall {
+  0% { top: -50px; opacity: 0; transform: scale(0.5);}
+  50% { opacity: 1; transform: scale(1.1);}
+  100% { top: 0; opacity: 1; transform: scale(1);}
 }
 
 /* ===== CHAT ADMIN ===== */
 #chatAdmin {
   display: inline-block;
-  margin-top: 15px;
-  padding: 10px 20px;
-  background-color: #00ccff;
+  padding: 10px 25px;
+  background-color: #00ffff;
   color: #000;
-  text-decoration: none;
   font-weight: bold;
-  border-radius: 5px;
+  border-radius: 10px;
+  text-decoration: none;
+  margin-top: 10px;
   transition: 0.3s;
+  box-shadow: 0 0 15px #00ffff;
 }
 
 #chatAdmin:hover {
-  background-color: #0099cc;
+  background-color: #00aaff;
+  box-shadow: 0 0 25px #00ffff;
 }
 
-.hidden {
-  display: none;
+#closeModal {
+  display: block;
+  margin: 15px auto 0;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 10px;
+  background-color: #00ffff;
+  color: #000;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-/* ===== HISTORY TABLE ===== */
+#closeModal:hover {
+  background-color: #00aaff;
+  box-shadow: 0 0 15px #00ffff;
+}
+
+.hidden { display: none; }
+
+/* ===== HISTORY CARD ===== */
+.history-card {
+  background-color: rgba(0,0,0,0.6);
+  padding: 10px;
+  border-radius: 15px;
+  margin-top: 10px;
+  box-shadow: 0 0 20px rgba(0,255,255,0.1);
+}
+
 table {
   width: 100%;
-  margin-top: 15px;
   border-collapse: collapse;
   color: #fff;
 }
 
 th, td {
-  border: 1px solid #444;
+  border: 1px solid rgba(0,255,255,0.2);
   padding: 8px;
+  text-align: center;
 }
 
 th {
-  background-color: #222;
+  background-color: rgba(0,255,255,0.1);
 }
 
 /* ===== PROGRESS BAR ===== */
 #progressContainer {
   width: 100%;
-  background-color: #333;
-  border-radius: 8px;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 12px;
   margin-top: 10px;
   height: 20px;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px #00ffff;
 }
 
 #progressBar {
   width: 0%;
   height: 100%;
-  background-color: #ffcc00;
-  border-radius: 8px;
-  transition: width 0.5s;
+  background-color: #00ffff;
+  border-radius: 12px;
+  transition: width 1s ease;
+  box-shadow: 0 0 15px #00ffff;
 }
