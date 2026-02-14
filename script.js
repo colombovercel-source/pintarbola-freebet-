@@ -1,107 +1,45 @@
-// ===== ELEMENTS =====
-const form = document.getElementById('bonusForm');
-const memberInput = document.getElementById('memberName');
-const claimBtn = document.getElementById('claimBtn');
-const countdownEl = document.getElementById('countdown');
+const loginBtn = document.getElementById("loginBtn");
+const claimModal = document.getElementById("claimModal");
+const memberName = document.getElementById("memberName");
+const progressBar = document.getElementById("progressBar");
+const totalClaim = document.getElementById("totalClaim");
+const logoutBtn = document.getElementById("logoutBtn");
 
-const modal = document.getElementById('modal');
-const modalMessage = document.getElementById('modalMessage');
-const coinContainer = document.getElementById('coinContainer');
-const chatAdmin = document.getElementById('chatAdmin');
-const closeModal = document.getElementById('closeModal');
+let claimCount = 0;
 
-const historyTable = document.getElementById('historyTable');
-const progressBar = document.getElementById('progressBar');
+loginBtn.addEventListener("click", () => {
+  const username = document.getElementById("loginUsername").value.trim();
+  if(username === "") return alert("Username wajib diisi!");
+  
+  memberName.textContent = username;
+  claimModal.classList.add("active");
+  document.getElementById("loginCard").style.display = "none";
 
-const coinSound = document.getElementById('coinSound');
-
-// ===== STORAGE =====
-let nextClaimTime = new Date(localStorage.getItem('nextClaim') || 0);
-let totalBonus = parseInt(localStorage.getItem('totalBonus')) || 0;
-
-// ===== COUNTDOWN =====
-function updateCountdown() {
-  const now = new Date();
-  const diff = nextClaimTime - now;
-
-  if(diff <= 0){
-    countdownEl.textContent = "Anda bisa klaim sekarang!";
-    claimBtn.disabled = false;
-  } else {
-    const hours = Math.floor(diff / 1000 / 60 / 60);
-    const minutes = Math.floor((diff / 1000 / 60) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-    countdownEl.textContent = `Klaim berikutnya dalam: ${hours}h ${minutes}m ${seconds}s`;
-    claimBtn.disabled = true;
-  }
-}
-setInterval(updateCountdown, 1000);
-
-// ===== HISTORY =====
-function updateHistory(memberName){
-  const row = historyTable.insertRow(-1);
-  const dateCell = row.insertCell(0);
-  const bonusCell = row.insertCell(1);
-  const statusCell = row.insertCell(2);
-
-  const now = new Date();
-  dateCell.textContent = now.toLocaleString();
-  bonusCell.textContent = "15.000";
-  statusCell.textContent = "Sukses";
-}
-
-// ===== PROGRESS BAR =====
-function updateProgress(){
-  const percentage = Math.min(totalBonus / 100000 * 100, 100);
-  progressBar.style.width = percentage + "%";
-}
-updateProgress();
-
-// ===== COIN ANIMATION =====
-function spawnCoins(num=6){
-  coinContainer.innerHTML = '';
-  for(let i=0;i<num;i++){
-    const coin = document.createElement('div');
-    coin.classList.add('coin');
-    coin.style.left = `${10 + i*20}px`;
-    coin.textContent = '💰';
-    coinContainer.appendChild(coin);
-  }
-  coinSound.play();
-}
-
-// ===== CLAIM BONUS =====
-form.addEventListener('submit', function(e){
-  e.preventDefault();
-  const memberName = memberInput.value.trim();
-  if(!memberName){
-    alert("Silakan masukkan nama member!");
-    return;
-  }
-
-  // SET NEXT CLAIM 24 JAM
-  nextClaimTime = new Date();
-  nextClaimTime.setHours(nextClaimTime.getHours() + 24);
-  localStorage.setItem('nextClaim', nextClaimTime);
-
-  // UPDATE BONUS & PROGRESS
-  totalBonus += 15000;
-  localStorage.setItem('totalBonus', totalBonus);
+  // Reset progress bar
   updateProgress();
-
-  // UPDATE HISTORY
-  updateHistory(memberName);
-
-  // SHOW MODAL
-  modalMessage.textContent = `Selamat ${memberName}, bonus 15.000 berhasil diklaim! 🎉`;
-  spawnCoins();
-  chatAdmin.href = `https://pintarkrn.com/livechat?message=${encodeURIComponent(`Member ${memberName} claim bonus 15000`)}`;
-  chatAdmin.classList.remove('hidden');
-  modal.classList.remove('hidden');
-
-  claimBtn.disabled = true;
-  memberInput.value = '';
 });
 
-// ===== CLOSE MODAL =====
-closeModal.addEventListener('click', () => modal.classList.add('hidden'));
+document.getElementById("claimBtn").addEventListener("click", () => {
+  claimCount++;
+  alert("🎉 Freebet 15.000 berhasil diklaim!");
+  updateProgress();
+});
+
+logoutBtn.addEventListener("click", () => {
+  claimModal.classList.remove("active");
+  document.getElementById("loginCard").style.display = "block";
+  document.getElementById("loginUsername").value = "";
+  claimCount = 0;
+  updateProgress();
+});
+
+document.getElementById("closeModal").addEventListener("click", () => {
+  claimModal.classList.remove("active");
+});
+
+function updateProgress(){
+  let progress = Math.min(claimCount*10,100); // Max 100%
+  progressBar.style.width = progress + "%";
+  progressBar.textContent = progress + "%";
+  totalClaim.textContent = claimCount;
+}
