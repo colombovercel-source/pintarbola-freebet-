@@ -1,65 +1,46 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PINTARBOLA - Claim Bonus Freebet</title>
-  <!-- LINK CSS -->
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PINTARBOLA - Claim Freebet 15.000</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>PINTARBOLA</h1>
-      <p>Claim Bonus Freebet 15.000 untuk Member</p>
-    </header>
 
-    <main>
-      <div class="bonus-card">
-        <h2>Claim Bonus Freebet</h2>
-        <form id="bonusForm">
-          <input type="text" id="memberName" placeholder="Nama Member" required>
-          <button type="submit" id="claimBtn">Claim Bonus</button>
-        </form>
-
-        <p id="countdown"></p>
-
-        <!-- Modal sukses -->
-        <div id="modal" class="modal hidden">
-          <div class="modal-content">
-            <h3>🎉 Bonus Berhasil! 🎉</h3>
-            <p id="modalMessage"></p>
-            <div id="coinContainer"></div>
-            <a id="chatAdmin" href="#" target="_blank">Hubungi Admin</a>
-            <button id="closeModal">Tutup</button>
-          </div>
-        </div>
-
-        <!-- History Klaim -->
-        <h3>History Klaim</h3>
-        <div class="history-card">
-          <table id="historyTable">
-            <tr>
-              <th>Tanggal</th>
-              <th>Bonus</th>
-              <th>Status</th>
-            </tr>
-          </table>
-        </div>
-
-        <!-- Progress Bar -->
-        <h3>Progress Bonus Freebet</h3>
-        <div id="progressContainer">
-          <div id="progressBar"></div>
-        </div>
-      </div>
-    </main>
+<div class="container">
+  <!-- Login Card -->
+  <div class="card" id="loginCard">
+    <div class="logo">PINTARBOLA</div>
+    <input type="text" id="loginUsername" placeholder="Masukkan Username">
+    <button id="loginBtn">LOGIN SEKARANG</button>
   </div>
+</div>
 
-  <!-- Audio coin -->
-  <audio id="coinSound" src="coin.mp3" preload="auto"></audio>
+<!-- Modal Claim -->
+<div class="modal" id="claimModal">
+  <div class="modal-content">
+    <button class="close-btn" id="closeModal">&times;</button>
+    <h2>Selamat datang, <span id="memberName"></span>!</h2>
+    <p>Klik tombol di bawah untuk klaim Freebet 15.000 Anda.</p>
 
-  <!-- LINK JS -->
-  <script src="bonus.js"></script>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar">0%</div>
+    </div>
+
+    <p>Total Claim Hari Ini: <span id="totalClaim">0</span></p>
+
+    <button id="claimBtn">CLAIM FREEBET</button>
+    <button class="logout-btn" id="logoutBtn">LOGOUT</button>
+    <button class="cs-btn" onclick="window.open('https://pintarkrn.com/', '_blank')">CS PINTARBOLA</button>
+  </div>
+</div>
+
+<!-- Floating Chat -->
+<div class="floating-chat" onclick="window.open('https://pintarkrn.com/', '_blank')">
+  <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="chat icon">
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
