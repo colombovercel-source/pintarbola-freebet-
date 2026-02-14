@@ -23,8 +23,9 @@ body{
   transform:scale(1.02);
 }
 
-.logo{
-  font-size:30px;font-weight:bold;margin-bottom:5px;color:#ffd700;text-shadow:1px 1px 3px rgba(0,0,0,0.4);
+.logo-img img{
+  width:120px;
+  margin-bottom:15px;
 }
 
 .subtitle{
@@ -33,23 +34,6 @@ body{
   color:#00ffcc;
   font-weight:bold;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-}
-
-/* Badge Verified */
-.verified-badge{
-  display:inline-block;
-  background:linear-gradient(90deg,#00ffcc,#00bfa5);
-  color:#000;
-  font-weight:bold;
-  padding:5px 12px;
-  border-radius:20px;
-  margin-bottom:15px;
-  animation:badgePulse 1.5s infinite;
-}
-
-@keyframes badgePulse{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.1);}
 }
 
 input{
@@ -109,26 +93,6 @@ button:hover{
 .cs-btn{
   margin-top:10px;
   background:#2575fc;
-}
-
-.leaderboard{
-  list-style:none;
-  margin-top:15px;
-  max-height:200px;
-  overflow-y:auto;
-  padding-left:0;
-  text-align:left;
-}
-
-.leaderboard li{
-  padding:8px 12px;
-  margin-bottom:6px;
-  background:rgba(255,255,255,0.1);
-  border-radius:10px;
-  display:flex;justify-content:space-between;
-  font-weight:bold;
-  color:#ffd700;
-  font-size:14px;
 }
 
 .floating-chat{
