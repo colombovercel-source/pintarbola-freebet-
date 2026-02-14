@@ -3,7 +3,6 @@ const claimModal = document.getElementById("claimModal");
 const memberName = document.getElementById("memberName");
 const logoutBtn = document.getElementById("logoutBtn");
 const promoTimerEl = document.getElementById("promoTimer");
-const leaderboardList = document.getElementById("leaderboardList");
 
 let claimedUsers = {}; // username => sudah klaim?
 
@@ -47,9 +46,6 @@ document.getElementById("claimBtn").addEventListener("click", () => {
   }
   claimedUsers[username] = true;
 
-  // Update Leaderboard
-  updateLeaderboard();
-
   // Confetti
   confetti({
     particleCount: 150,
@@ -59,18 +55,6 @@ document.getElementById("claimBtn").addEventListener("click", () => {
 
   alert("🎉 Freebet 15.000 berhasil diklaim!");
 });
-
-// Update Leaderboard
-function updateLeaderboard(){
-  leaderboardList.innerHTML = "";
-  let rank = 1;
-  for(const user in claimedUsers){
-    const li = document.createElement("li");
-    li.textContent = `${rank}. ${user}`;
-    leaderboardList.appendChild(li);
-    rank++;
-  }
-}
 
 // Logout
 logoutBtn.addEventListener("click", () => {
