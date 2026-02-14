@@ -22,13 +22,18 @@ body {
   text-shadow:0 0 20px #22c55e;
 }
 
-/* CARD */
 .card {
-  background:rgba(20,20,50,0.85);
+  background:linear-gradient(145deg, rgba(20,20,50,0.85), rgba(25,25,55,0.85));
   padding:20px;
   border-radius:12px;
   margin-bottom:15px;
-  box-shadow:0 0 25px rgba(34,197,94,0.3);
+  box-shadow:0 0 25px rgba(34,197,94,0.5);
+  transition:transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform:translateY(-5px);
+  box-shadow:0 0 35px rgba(34,197,94,0.7);
 }
 
 /* GRID DASHBOARD */
@@ -55,26 +60,53 @@ body {
   color:black;
   font-weight:bold;
   cursor:pointer;
+  transition:0.3s;
 }
 #claimBtn:hover { background:#16a34a; }
 
 /* LIVE FEED */
 .live-feed-card h3 { margin-bottom:10px; }
-#liveFeed { font-size:14px; color:#00ffff; min-height:100px; overflow:hidden; text-align:left; margin-bottom:10px; }
-.cs-link { display:inline-block; padding:8px 12px; background:#22c55e; color:black; text-decoration:none; border-radius:8px; }
+.liveFeedScroll {
+  max-height:100px;
+  overflow:hidden;
+  text-align:left;
+  position:relative;
+}
+.liveFeedScroll p {
+  margin:0;
+  padding:3px 0;
+  animation: scrollFeed 10s linear infinite;
+  color:#00ffff;
+}
+
+/* SCROLL ANIMASI LIVE FEED */
+@keyframes scrollFeed{
+  0%{ transform:translateY(100%); opacity:0; }
+  10%{ transform:translateY(50%); opacity:1; }
+  90%{ transform:translateY(-50%); opacity:1; }
+  100%{ transform:translateY(-100%); opacity:0; }
+}
+
+.cs-link { display:inline-block; padding:8px 12px; background:#22c55e; color:black; text-decoration:none; border-radius:8px; transition:0.3s; }
 .cs-link:hover { background:#16a34a; }
 
 /* LOGOUT */
-.logout-btn { margin-top:10px; padding:10px; width:100%; border:none; border-radius:8px; background:crimson; color:white; cursor:pointer; }
+.logout-btn { margin-top:10px; padding:10px; width:100%; border:none; border-radius:8px; background:crimson; color:white; cursor:pointer; transition:0.3s; }
+.logout-btn:hover{ background:#b22222; }
 
-/* POPUP */
+/* POPUP SCALE/FADE */
 .popup {
-  position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+  position:fixed; top:50%; left:50%; transform:translate(-50%,-50%) scale(0);
   background:#141432; padding:20px; border-radius:12px;
   box-shadow:0 0 25px rgba(34,197,94,0.5); text-align:center;
   color:white; z-index:1000;
+  transition:transform 0.3s ease, opacity 0.3s ease;
+  opacity:0;
 }
-.popup.hidden { display:none; }
+.popup.show {
+  transform:translate(-50%,-50%) scale(1);
+  opacity:1;
+}
 .popup button {
   margin-top:10px; padding:8px 15px; border:none;
   border-radius:8px; background:#22c55e; color:black; cursor:pointer;
