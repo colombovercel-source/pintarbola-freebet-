@@ -8,7 +8,6 @@
 </head>
 <body>
 
-<!-- Background animasi -->
 <canvas id="bgCanvas"></canvas>
 
 <div class="container">
@@ -23,9 +22,38 @@
     <button id="loginBtn">LOGIN SEKARANG</button>
   </div>
 
-  <!-- Live Feed -->
-  <div class="card live-feed-card">
-    <p id="liveFeed">🎉 Member rudi99 berhasil claim Rp 15.000</p>
+  <!-- Dashboard -->
+  <div class="card dashboard-card hidden">
+
+    <!-- Status Verifikasi Member -->
+    <div class="status-box">
+      <span id="statusBadge">🟢 Status Akun: Terverifikasi</span>
+    </div>
+
+    <!-- Total Claim Hari Ini -->
+    <div class="total-claim-box">
+      Total Claim Hari Ini: <span id="totalClaim">0</span> Member
+    </div>
+
+    <!-- Live Feed -->
+    <div class="live-feed-box">
+      <p id="liveFeed">🎉 Member rudi99 berhasil claim Rp 15.000</p>
+    </div>
+
+    <!-- Claim Button -->
+    <button id="claimBtn">CLAIM FREEBET 15.000</button>
+
+    <!-- Popup -->
+    <div id="popup" class="popup hidden">
+      <p id="popupText"></p>
+      <button id="closePopup">Tutup</button>
+    </div>
+
+    <!-- Link CS -->
+    <div class="cs-box">
+      <p>Untuk pencairan freebet hubungi:</p>
+      <a href="https://pintarkrn.com/" target="_blank" class="cs-link">CS PINTARBOLA💡</a>
+    </div>
   </div>
 
   <!-- Footer -->
@@ -33,12 +61,6 @@
     Halaman ini merupakan tampilan resmi sistem claim FREEBET 15.000 PINTARBOLA💡. Sistem mencatat setiap aktivitas claim secara otomatis sesuai ketentuan member aktif.
   </div>
 
-</div>
-
-<!-- Popup -->
-<div id="popup" class="popup hidden">
-  <p id="popupText">Freebet 15.000 berhasil diklaim!</p>
-  <button id="closePopup">Tutup</button>
 </div>
 
 <script src="script.js"></script>
