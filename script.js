@@ -61,6 +61,7 @@ claimBtn.addEventListener("click",()=>{
   const trxId = `PB-${now}`;
   transactionIdEl.textContent = `ID Transaksi: ${trxId}`;
   showPopup(`Freebet 15.000 berhasil diklaim oleh ${username}!`);
+  confettiEffect();
   startTimer();
 });
 
@@ -86,7 +87,12 @@ function startTimer(){
 // LIVE FEED
 function updateLiveFeed(){
   const randomMember = members[Math.floor(Math.random()*members.length)];
-  liveFeed.textContent=`🎉 Member ${randomMember} berhasil claim Rp 15.000`;
+  const p = document.createElement("p");
+  p.textContent=`🎉 Member ${randomMember} berhasil claim Rp 15.000`;
+  liveFeed.appendChild(p);
+  if(liveFeed.childNodes.length>5){
+    liveFeed.removeChild(liveFeed.childNodes[0]);
+  }
 }
 setInterval(updateLiveFeed,5000);
 updateLiveFeed();
@@ -94,9 +100,10 @@ updateLiveFeed();
 // POPUP
 function showPopup(message){
   popupText.textContent=message;
-  popup.classList.remove("hidden");
+  popup.classList.add("show");
+  setTimeout(()=>popup.classList.remove("show"),3000);
 }
-closePopup.addEventListener("click",()=>{ popup.classList.add("hidden"); });
+closePopup.addEventListener("click",()=>{ popup.classList.remove("show"); });
 
 // LOGOUT
 logoutBtn.addEventListener("click",()=>{
@@ -118,15 +125,19 @@ canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
 let particles=[];
-for(let i=0;i<150;i++){
-  particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1});
+for(let i=0;i<200;i++){
+  particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1,dx:(Math.random()-0.5)*0.5,dy:(Math.random()-0.5)*0.5});
 }
 
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   particles.forEach(p=>{
-    p.y-=0.7;
+    p.x+=p.dx;
+    p.y+=p.dy;
+    if(p.x<0)p.x=canvas.width;
+    if(p.x>canvas.width)p.x=0;
     if(p.y<0)p.y=canvas.height;
+    if(p.y>canvas.height)p.y=0;
     ctx.beginPath();
     ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
     ctx.fillStyle="#22c55e";
@@ -140,3 +151,36 @@ window.addEventListener("resize",()=>{
   canvas.width=window.innerWidth;
   canvas.height=window.innerHeight;
 });
+
+// CONFETTI EFFECT
+function confettiEffect(){
+  for(let i=0;i<100;i++){
+    const conf = document.createElement("div");
+    conf.className="confetti";
+    conf.style.left=Math.random()*90+"%";
+    conf.style.backgroundColor=["#22c55e","#16a34a","#ffffff"][Math.floor(Math.random()*3)];
+    conf.style.animationDuration=(Math.random()*1+1)+"s";
+    document.body.appendChild(conf);
+    setTimeout(()=>document.body.removeChild(conf),1500);
+  }
+}
+
+// CONFETTI CSS
+const styleConfetti = document.createElement("style");
+styleConfetti.innerHTML=`
+.confetti{
+  position:fixed;
+  width:6px;
+  height:6px;
+  top:0;
+  z-index:10000;
+  opacity:0.8;
+  border-radius:50%;
+  animation:fall linear forwards;
+}
+@keyframes fall{
+  0%{ transform:translateY(0) rotate(0deg);}
+  100%{ transform:translateY(500px) rotate(360deg);}
+}
+`;
+document.head.appendChild(styleConfetti);
