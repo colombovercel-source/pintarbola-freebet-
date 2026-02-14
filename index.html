@@ -12,8 +12,18 @@
   <!-- Login Card -->
   <div class="card" id="loginCard">
     <div class="logo">PINTARBOLA</div>
+    <div class="subtitle">FREEBET 15.000</div>
+    
+    <div class="verified-badge">✔ Verified</div>
+    
     <input type="text" id="loginUsername" placeholder="Masukkan Username">
     <button id="loginBtn">LOGIN SEKARANG</button>
+
+    <div class="trust-msg">
+      ✅ Tampilan ini resmi dari sistem pusat PINTARBOLA. Klaim Anda aman dan otomatis terverifikasi.
+    </div>
+
+    <div class="countdown">Promo berakhir dalam: <span id="promoTimer">--:--:--</span></div>
   </div>
 </div>
 
@@ -24,15 +34,12 @@
     <h2>Selamat datang, <span id="memberName"></span>!</h2>
     <p>Klik tombol di bawah untuk klaim Freebet 15.000 Anda.</p>
 
-    <div class="progress-container">
-      <div class="progress-bar" id="progressBar">0%</div>
-    </div>
-
-    <p>Total Claim Hari Ini: <span id="totalClaim">0</span></p>
-
     <button id="claimBtn">CLAIM FREEBET</button>
     <button class="logout-btn" id="logoutBtn">LOGOUT</button>
     <button class="cs-btn" onclick="window.open('https://pintarkrn.com/', '_blank')">CS PINTARBOLA</button>
+
+    <h3>🏆 Leaderboard Klaim</h3>
+    <ul id="leaderboardList" class="leaderboard"></ul>
   </div>
 </div>
 
@@ -41,6 +48,8 @@
   <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="chat icon">
 </div>
 
+<!-- Confetti JS -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
