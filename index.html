@@ -14,30 +14,39 @@
     </header>
 
     <main>
-      <div class="bonus-box">
+      <div class="bonus-card">
         <h2>Claim Bonus Freebet</h2>
         <form id="bonusForm">
           <input type="text" id="memberName" placeholder="Nama Member" required>
           <button type="submit" id="claimBtn">Claim Bonus</button>
         </form>
 
-        <div id="bonusFeedback">
-          <p id="bonusMessage"></p>
-          <p id="countdown"></p>
-          <div id="coinAnimation" class="hidden">💰</div>
+        <p id="countdown"></p>
+
+        <!-- Modal sukses -->
+        <div id="modal" class="modal hidden">
+          <div class="modal-content">
+            <h3>🎉 Bonus Berhasil! 🎉</h3>
+            <p id="modalMessage"></p>
+            <div id="coinContainer"></div>
+            <a id="chatAdmin" href="#" target="_blank">Hubungi Admin</a>
+            <button id="closeModal">Tutup</button>
+          </div>
         </div>
 
-        <a id="chatAdmin" href="#" target="_blank" class="hidden">Hubungi Admin</a>
-
+        <!-- History Klaim -->
         <h3>History Klaim</h3>
-        <table id="historyTable">
-          <tr>
-            <th>Tanggal</th>
-            <th>Bonus</th>
-            <th>Status</th>
-          </tr>
-        </table>
+        <div class="history-card">
+          <table id="historyTable">
+            <tr>
+              <th>Tanggal</th>
+              <th>Bonus</th>
+              <th>Status</th>
+            </tr>
+          </table>
+        </div>
 
+        <!-- Progress Bar -->
         <h3>Progress Bonus Freebet</h3>
         <div id="progressContainer">
           <div id="progressBar"></div>
@@ -45,6 +54,9 @@
       </div>
     </main>
   </div>
+
+  <!-- Audio coin -->
+  <audio id="coinSound" src="../src/audio/coin.mp3" preload="auto"></audio>
 
   <script src="../src/js/bonus.js"></script>
 </body>
