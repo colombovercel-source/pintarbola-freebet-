@@ -1,87 +1,141 @@
 const BONUS = 15000;
+const CLAIM_INTERVAL = 24*60*60*1000;
 
 // ELEMENTS
 const loginBtn = document.getElementById("loginBtn");
 const usernameInput = document.getElementById("usernameInput");
-const dashboardCard = document.querySelector(".dashboard-card");
-const liveFeed = document.getElementById("liveFeed");
-const totalClaimEl = document.getElementById("totalClaim");
+const dashboardCard = document.getElementById("dashboardCard");
+const displayUsername = document.getElementById("displayUsername");
 const statusBadge = document.getElementById("statusBadge");
+const balanceDisplay = document.getElementById("balanceDisplay");
 const claimBtn = document.getElementById("claimBtn");
+const totalClaimEl = document.getElementById("totalClaim");
+const timerEl = document.getElementById("timer");
+const transactionIdEl = document.getElementById("transactionId");
+const liveFeed = document.getElementById("liveFeed");
+const logoutBtn = document.getElementById("logoutBtn");
 const popup = document.getElementById("popup");
 const popupText = document.getElementById("popupText");
 const closePopup = document.getElementById("closePopup");
 
+// STATE
 let username = "";
-let totalClaim = Math.floor(Math.random() * 200 + 100); // 100–300
+let lastClaim = 0;
+let balance = 0;
+let totalClaim = Math.floor(Math.random()*200+100);
+let countdownInterval = null;
 
-// LIVE FEED MEMBERS
+// MEMBERS FAKE LIVE FEED
 const members = ["agus88","andika77","rudi99","bima21","leo123"];
 
-// INIT TOTAL CLAIM
+// INIT
 totalClaimEl.textContent = totalClaim;
 
 // RANDOM STATUS AKUN
-let verified = Math.random() > 0.2; // 80% terverifikasi
+let verified = Math.random()>0.2; // 80% terverifikasi
 statusBadge.textContent = verified ? "🟢 Status Akun: Terverifikasi" : "🟡 Status Akun: Belum Verifikasi";
 
 // LOGIN
-loginBtn.addEventListener("click", () => {
+loginBtn.addEventListener("click",()=>{
   username = usernameInput.value.trim();
   if(!username){ alert("Masukkan username!"); return; }
-
-  // Tampilkan dashboard
-  document.querySelector(".login-card").classList.add("hidden");
+  displayUsername.textContent = username;
   dashboardCard.classList.remove("hidden");
-
-  // Tampilkan live feed popup
+  document.querySelector(".login-card").classList.add("hidden");
   showPopup(`Freebet 15.000 berhasil diklaim oleh ${username}!`);
+  claimBtn.disabled = false;
 });
 
-// CLAIM BUTTON
-claimBtn.addEventListener("click", ()=>{
-  showPopup(`Freebet 15.000 berhasil diklaim oleh ${username}!`);
-  totalClaim += 1;
+// CLAIM
+claimBtn.addEventListener("click",()=>{
+  const now = Date.now();
+  if(now-lastClaim<CLAIM_INTERVAL){
+    alert("Tunggu 24 jam sebelum claim berikutnya!");
+    return;
+  }
+  lastClaim = now;
+  balance += BONUS;
+  balanceDisplay.textContent = `Saldo Freebet: Rp ${balance.toLocaleString()}`;
+  totalClaim +=1;
   totalClaimEl.textContent = totalClaim;
+  const trxId = `PB-${now}`;
+  transactionIdEl.textContent = `ID Transaksi: ${trxId}`;
+  showPopup(`Freebet 15.000 berhasil diklaim oleh ${username}!`);
+  startTimer();
 });
 
-// POPUP CONTROL
-closePopup.addEventListener("click", ()=>{ popup.classList.add("hidden"); });
-function showPopup(message){
-  popupText.textContent = message;
-  popup.classList.remove("hidden");
+// TIMER 24 JAM
+function startTimer(){
+  if(countdownInterval) clearInterval(countdownInterval);
+  let remaining = CLAIM_INTERVAL;
+  countdownInterval = setInterval(()=>{
+    if(remaining<=0){
+      timerEl.textContent="Freebet siap diklaim!";
+      claimBtn.disabled=false;
+      clearInterval(countdownInterval);
+      return;
+    }
+    const h = Math.floor(remaining/3600000);
+    const m = Math.floor((remaining%3600000)/60000);
+    const s = Math.floor((remaining%60000)/1000);
+    timerEl.textContent=`Tunggu ${h}j ${m}m ${s}d untuk claim berikutnya`;
+    remaining-=1000;
+  },1000);
 }
 
-// LIVE FEED RANDOM
+// LIVE FEED
 function updateLiveFeed(){
   const randomMember = members[Math.floor(Math.random()*members.length)];
-  liveFeed.textContent = `🎉 Member ${randomMember} berhasil claim Rp 15.000`;
+  liveFeed.textContent=`🎉 Member ${randomMember} berhasil claim Rp 15.000`;
 }
 setInterval(updateLiveFeed,5000);
 updateLiveFeed();
 
-// BACKGROUND ANIMASI SEDERHANA
+// POPUP
+function showPopup(message){
+  popupText.textContent=message;
+  popup.classList.remove("hidden");
+}
+closePopup.addEventListener("click",()=>{ popup.classList.add("hidden"); });
+
+// LOGOUT
+logoutBtn.addEventListener("click",()=>{
+  username="";
+  balance=0;
+  lastClaim=0;
+  document.querySelector(".login-card").classList.remove("hidden");
+  dashboardCard.classList.add("hidden");
+  usernameInput.value="";
+  balanceDisplay.textContent=`Saldo Freebet: Rp 0`;
+  timerEl.textContent="Freebet siap diklaim!";
+  transactionIdEl.textContent="";
+});
+
+// BACKGROUND ANIMASI PREMIUM
 const canvas = document.getElementById("bgCanvas");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-let particles = [];
-for(let i=0;i<100;i++){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<150;i++){
   particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1});
 }
+
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   particles.forEach(p=>{
-    p.y-=0.5;
+    p.y-=0.7;
     if(p.y<0)p.y=canvas.height;
     ctx.beginPath();
     ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle="#22c55e"; // hijau luxury
+    ctx.fillStyle="#22c55e";
     ctx.fill();
   });
   requestAnimationFrame(animate);
 }
 animate();
+
 window.addEventListener("resize",()=>{
   canvas.width=window.innerWidth;
   canvas.height=window.innerHeight;
