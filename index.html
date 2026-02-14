@@ -7,23 +7,45 @@
   <link rel="stylesheet" href="../src/css/style.css">
 </head>
 <body>
-  <header>
-    <h1>PINTARBOLA</h1>
-    <p>Claim Bonus Freebet untuk member</p>
-  </header>
+  <div class="container">
+    <header>
+      <h1>PINTARBOLA</h1>
+      <p>Claim Bonus Freebet 15.000 untuk Member</p>
+    </header>
 
-  <main>
-    <section id="bonus-section">
-      <h2>Claim Bonus Freebet</h2>
-      <form id="bonusForm">
-        <input type="text" id="memberName" placeholder="Nama Member" required>
-        <button type="submit">Claim Bonus</button>
-      </form>
-      <p id="bonusMessage"></p>
-    </section>
-  </main>
+    <main>
+      <div class="bonus-box">
+        <h2>Claim Bonus Freebet</h2>
+        <form id="bonusForm">
+          <input type="text" id="memberName" placeholder="Nama Member" required>
+          <button type="submit" id="claimBtn">Claim Bonus</button>
+        </form>
+
+        <div id="bonusFeedback">
+          <p id="bonusMessage"></p>
+          <p id="countdown"></p>
+          <div id="coinAnimation" class="hidden">💰</div>
+        </div>
+
+        <a id="chatAdmin" href="#" target="_blank" class="hidden">Hubungi Admin</a>
+
+        <h3>History Klaim</h3>
+        <table id="historyTable">
+          <tr>
+            <th>Tanggal</th>
+            <th>Bonus</th>
+            <th>Status</th>
+          </tr>
+        </table>
+
+        <h3>Progress Bonus Freebet</h3>
+        <div id="progressContainer">
+          <div id="progressBar"></div>
+        </div>
+      </div>
+    </main>
+  </div>
 
   <script src="../src/js/bonus.js"></script>
-  <script src="../src/js/main.js"></script>
 </body>
 </html>
