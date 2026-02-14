@@ -1,264 +1,96 @@
-/* ===== GLOBAL & BACKGROUND FUTURISTIK ===== */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  overflow: hidden;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 
-  /* Futuristic Background */
-  background: radial-gradient(circle at top, #0a0a0a 0%, #111 80%);
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  display:flex;justify-content:center;align-items:center;color:#fff;
 }
 
-body::before {
-  content: "";
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background: repeating-linear-gradient(
-    45deg,
-    rgba(0,255,255,0.05) 0px,
-    rgba(0,255,255,0.05) 1px,
-    transparent 1px,
-    transparent 20px
-  );
-  animation: moveGrid 20s linear infinite;
-  z-index: -1;
+.container{width:90%;max-width:400px;position:relative;}
+
+.card{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  text-align:center;
+  animation:fadeIn 1s ease;
 }
 
-body::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(0,255,255,0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: moveParticles 30s linear infinite;
-  z-index: -1;
+.logo{
+  font-size:28px;font-weight:bold;margin-bottom:10px;color:#ffd700;
 }
 
-@keyframes moveGrid {
-  0% { transform: translate(0,0); }
-  100% { transform: translate(-100px,-100px); }
+input{
+  width:100%;padding:12px;margin:8px 0;border:none;border-radius:10px;outline:none;font-size:14px;
 }
 
-@keyframes moveParticles {
-  0% { background-position: 0 0; }
-  100% { background-position: -100px 100px; }
+button{
+  width:100%;padding:12px;margin-top:15px;border:none;border-radius:10px;background:linear-gradient(90deg,#ff512f,#dd2476);color:white;font-size:16px;font-weight:bold;cursor:pointer;transition:0.3s;
 }
 
-/* ===== CONTAINER ===== */
-.container {
-  width: 100%;
-  max-width: 500px;
-  text-align: center;
-  z-index: 1;
-  position: relative;
+button:hover{transform:scale(1.05);}
+
+.modal{
+  position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);
+  display:none;align-items:center;justify-content:center;z-index:1000;
 }
 
-/* ===== HEADER ===== */
-header h1 {
-  color: #00ffff;
-  margin-bottom: 5px;
-  text-shadow: 0 0 10px #00ffff;
+.modal.active{display:flex;}
+
+.modal-content{
+  background:#1c1c1c;color:#fff;padding:25px;border-radius:15px;text-align:center;width:90%;max-width:400px;position:relative;
 }
 
-header p {
-  color: #aaa;
-  margin-top: 0;
+.modal-content h2{margin-bottom:10px;}
+.modal-content p{margin-bottom:20px;opacity:0.8;}
+
+.progress-container{
+  background:rgba(255,255,255,0.2);
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:15px;
 }
 
-/* ===== BONUS CARD ===== */
-.bonus-card {
-  background-color: rgba(30,30,30,0.85);
-  padding: 30px 20px;
-  border-radius: 20px;
-  box-shadow: 0 0 40px rgba(0,255,255,0.3);
-  margin-top: 20px;
-  transition: all 0.3s ease;
+.progress-bar{
+  height:20px;
+  width:0%;
+  background:linear-gradient(90deg,#00ffcc,#00bfa5);
+  text-align:center;
+  line-height:20px;
+  color:#000;
+  font-weight:bold;
+  transition:width 0.5s ease;
 }
 
-.bonus-card:hover {
-  box-shadow: 0 0 50px rgba(0,255,255,0.6);
+.close-btn{
+  position:absolute;top:10px;right:15px;background:#ff4757;border:none;color:#fff;font-size:16px;padding:5px 10px;border-radius:8px;cursor:pointer;
 }
 
-.bonus-card h2, .bonus-card h3 {
-  color: #00ffff;
-  margin-bottom: 15px;
-  text-shadow: 0 0 5px #00ffff;
+.logout-btn{
+  margin-top:10px;
+  background:#555;
 }
 
-form input {
-  padding: 12px;
-  width: 60%;
-  border-radius: 8px;
-  border: none;
-  margin-bottom: 15px;
+.cs-btn{
+  margin-top:10px;
+  background:#2575fc;
 }
 
-form button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  background-color: #00ffff;
-  color: #000;
-  font-weight: bold;
-  cursor: pointer;
-  margin-left: 10px;
-  transition: 0.3s;
+.floating-chat{
+  position:fixed;
+  bottom:20px;right:20px;
+  width:60px;height:60px;
+  background:#00bfa5;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  transition:0.3s;
+  z-index:999;
 }
 
-form button:hover {
-  background-color: #00aaff;
-  box-shadow: 0 0 15px #00ffff;
-}
-
-/* ===== COUNTDOWN ===== */
-#countdown {
-  margin-top: 10px;
-  font-size: 1em;
-  color: #aaa;
-}
-
-/* ===== MODAL ===== */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.95);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-}
-
-.modal-content {
-  background-color: rgba(20,20,20,0.95);
-  padding: 30px 20px;
-  border-radius: 20px;
-  text-align: center;
-  max-width: 380px;
-  box-shadow: 0 0 40px rgba(0,255,255,0.5);
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.modal-content h3 {
-  color: #00ffff;
-  text-shadow: 0 0 10px #00ffff;
-}
-
-.modal-content p {
-  margin: 15px 0;
-  font-size: 1.1em;
-}
-
-/* ===== COIN ANIMATION ===== */
-#coinContainer {
-  position: relative;
-  height: 60px;
-  margin: 15px 0;
-}
-
-.coin {
-  position: absolute;
-  font-size: 2em;
-  top: -50px;
-  animation: fall 1s ease forwards;
-  text-shadow: 0 0 10px #00ffff;
-}
-
-@keyframes fall {
-  0% { top: -50px; opacity: 0; transform: scale(0.5);}
-  50% { opacity: 1; transform: scale(1.1);}
-  100% { top: 0; opacity: 1; transform: scale(1);}
-}
-
-/* ===== CHAT ADMIN ===== */
-#chatAdmin {
-  display: inline-block;
-  padding: 10px 25px;
-  background-color: #00ffff;
-  color: #000;
-  font-weight: bold;
-  border-radius: 10px;
-  text-decoration: none;
-  margin-top: 10px;
-  transition: 0.3s;
-  box-shadow: 0 0 15px #00ffff;
-}
-
-#chatAdmin:hover {
-  background-color: #00aaff;
-  box-shadow: 0 0 25px #00ffff;
-}
-
-#closeModal {
-  display: block;
-  margin: 15px auto 0;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 10px;
-  background-color: #00ffff;
-  color: #000;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#closeModal:hover {
-  background-color: #00aaff;
-  box-shadow: 0 0 15px #00ffff;
-}
-
-.hidden { display: none; }
-
-/* ===== HISTORY CARD ===== */
-.history-card {
-  background-color: rgba(0,0,0,0.6);
-  padding: 10px;
-  border-radius: 15px;
-  margin-top: 10px;
-  box-shadow: 0 0 20px rgba(0,255,255,0.1);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  color: #fff;
-}
-
-th, td {
-  border: 1px solid rgba(0,255,255,0.2);
-  padding: 8px;
-  text-align: center;
-}
-
-th {
-  background-color: rgba(0,255,255,0.1);
-}
-
-/* ===== PROGRESS BAR ===== */
-#progressContainer {
-  width: 100%;
-  background-color: rgba(0,0,0,0.3);
-  border-radius: 12px;
-  margin-top: 10px;
-  height: 20px;
-  overflow: hidden;
-  box-shadow: inset 0 0 10px #00ffff;
-}
-
-#progressBar {
-  width: 0%;
-  height: 100%;
-  background-color: #00ffff;
-  border-radius: 12px;
-  transition: width 1s ease;
-  box-shadow: 0 0 15px #00ffff;
-}
+.floating-chat:hover{transform:scale(1.1);}
+.floating-chat img{width:30px;height:30px;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
