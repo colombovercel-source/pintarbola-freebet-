@@ -1,55 +1,147 @@
+/* ===== GLOBAL ===== */
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #1a1a1a, #2d2d2d);
-  color: #fff;
-  text-align: center;
   margin: 0;
   padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right, #111, #222);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-header {
-  background-color: #111;
-  padding: 20px 0;
+.container {
+  text-align: center;
+  width: 100%;
+  max-width: 450px;
 }
 
+/* ===== HEADER ===== */
 header h1 {
-  margin: 0;
   color: #ffcc00;
+  margin-bottom: 5px;
 }
 
 header p {
-  margin: 5px 0 0;
-  font-size: 1.2em;
+  margin-top: 0;
+  font-size: 1.1em;
+  color: #ddd;
 }
 
-main {
-  margin: 50px 0;
+/* ===== BONUS BOX ===== */
+.bonus-box {
+  background-color: #1a1a1a;
+  padding: 30px 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+  margin-top: 20px;
+}
+
+.bonus-box h2, .bonus-box h3 {
+  color: #ffcc00;
+  margin-bottom: 15px;
 }
 
 form input {
-  padding: 10px;
-  width: 200px;
+  padding: 12px;
+  width: 65%;
   border-radius: 5px;
   border: none;
-  margin-right: 10px;
+  margin-bottom: 15px;
 }
 
 form button {
-  padding: 10px 20px;
+  padding: 12px 20px;
   border: none;
   border-radius: 5px;
   background-color: #ffcc00;
   color: #000;
   font-weight: bold;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 form button:hover {
   background-color: #ffaa00;
 }
 
+/* ===== MESSAGE & COUNTDOWN ===== */
 #bonusMessage {
-  margin-top: 20px;
-  font-size: 1.2em;
-  color: #00ff00;
+  margin-top: 15px;
+  font-size: 1.1em;
+}
+
+#countdown {
+  margin-top: 10px;
+  font-size: 0.95em;
+  color: #aaa;
+}
+
+/* ===== COIN ANIMATION ===== */
+#coinAnimation {
+  font-size: 2.5em;
+  animation: bounce 1s ease forwards;
+  margin-top: 15px;
+}
+
+@keyframes bounce {
+  0% { transform: translateY(-50px); opacity: 0; }
+  50% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+
+/* ===== CHAT ADMIN ===== */
+#chatAdmin {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #00ccff;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+#chatAdmin:hover {
+  background-color: #0099cc;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ===== HISTORY TABLE ===== */
+table {
+  width: 100%;
+  margin-top: 15px;
+  border-collapse: collapse;
+  color: #fff;
+}
+
+th, td {
+  border: 1px solid #444;
+  padding: 8px;
+}
+
+th {
+  background-color: #222;
+}
+
+/* ===== PROGRESS BAR ===== */
+#progressContainer {
+  width: 100%;
+  background-color: #333;
+  border-radius: 8px;
+  margin-top: 10px;
+  height: 20px;
+}
+
+#progressBar {
+  width: 0%;
+  height: 100%;
+  background-color: #ffcc00;
+  border-radius: 8px;
+  transition: width 0.5s;
 }
