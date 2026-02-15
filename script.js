@@ -74,11 +74,10 @@ function launchConfetti() {
 // ===== LIVE FEED =====
 const feedList = document.getElementById("feedList");
 const users = ["User123","UserABC","PlayerX","LuckyOne","UserXYZ","Gamer77"];
-const amounts = [10000,20000,25000,50000,15000];
+const amount = 20000;
 
 function addFeed() {
   const user = users[Math.floor(Math.random()*users.length)];
-  const amount = amounts[Math.floor(Math.random()*amounts.length)];
   const li = document.createElement("li");
   li.textContent = `${user} berhasil claim ${amount.toLocaleString()}`;
   feedList.prepend(li);
