@@ -1,69 +1,89 @@
-const loginBtn = document.getElementById("loginBtn");
-const claimModal = document.getElementById("claimModal");
-const memberName = document.getElementById("memberName");
-const logoutBtn = document.getElementById("logoutBtn");
-const promoTimerEl = document.getElementById("promoTimer");
+// ===== START CLAIM BONUS =====
+const claimBtn = document.getElementById("claimBtn");
+claimBtn.addEventListener("click", startClaim);
 
-let claimedUsers = {}; // username => sudah klaim?
-
-// Promo countdown (misal promo berakhir 2 jam dari sekarang)
-const promoEnd = new Date();
-promoEnd.setHours(promoEnd.getHours() + 2);
-
-function updateCountdown(){
-  const now = new Date();
-  let diff = promoEnd - now;
-  if(diff <=0){
-    promoTimerEl.textContent = "00:00:00";
-    clearInterval(countdownInterval);
+function startClaim() {
+  var userId = document.getElementById("userId").value.trim();
+  if(!userId) {
+    alert("Silakan masukkan User ID terlebih dahulu.");
     return;
   }
-  const h = String(Math.floor(diff/1000/60/60)).padStart(2,'0');
-  const m = String(Math.floor((diff/1000/60)%60)).padStart(2,'0');
-  const s = String(Math.floor((diff/1000)%60)).padStart(2,'0');
-  promoTimerEl.textContent = `${h}:${m}:${s}`;
+
+  document.getElementById("modal").style.display = "flex";
+
+  // ubah warna teks status modal & progres menjadi putih
+  document.getElementById("statusText").style.color = "white";
+  document.getElementById("progressBar").style.background = "white";
+
+  simulateProgress(userId);
 }
 
-const countdownInterval = setInterval(updateCountdown,1000);
-updateCountdown();
+// ===== SIMULASI PROGRESS =====
+function simulateProgress(userId) {
+  var progress = 0;
+  var bar = document.getElementById("progressBar");
+  var status = document.getElementById("statusText");
 
-// Login
-loginBtn.addEventListener("click", () => {
-  const username = document.getElementById("loginUsername").value.trim();
-  if(username === "") return alert("Username wajib diisi!");
-  
-  memberName.textContent = username;
-  claimModal.classList.add("active");
-  document.getElementById("loginCard").style.display = "none";
-});
+  var interval = setInterval(function() {
+    progress += 10;
+    bar.style.width = progress + "%";
 
-// Claim Freebet
-document.getElementById("claimBtn").addEventListener("click", () => {
-  const username = document.getElementById("loginUsername").value.trim();
-  if(claimedUsers[username]){
-    alert("⚠ Username ini sudah pernah klaim freebet sebelumnya!");
-    return;
+    if(progress == 30) status.textContent = "Memverifikasi User ID...";
+    if(progress == 60) status.textContent = "Mengaktifkan Bonus Freebet...";
+    if(progress == 90) status.textContent = "Finalisasi Klaim...";
+
+    if(progress >= 100) {
+      clearInterval(interval);
+      showSuccess(userId);
+    }
+  }, 400);
+}
+
+// ===== MENAMPILKAN SUKSES =====
+function showSuccess(userId) {
+  document.getElementById("modalContent").innerHTML = `
+    <h2>Selamat</h2>
+    <p>
+      User ID <b>${userId}</b><br><br>
+      Berhasil Claim Bonus Freebet 20.000<br><br>
+      Silakan screenshot halaman ini
+    </p>
+    <button class="cs-btn" onclick="goToCS()">HUBUNGI CS</button>
+  `;
+  launchConfetti();
+}
+
+// ===== HUBUNGI CS =====
+function goToCS() {
+  window.location.href = "https://pintarkrn.com/";
+}
+
+// ===== CONFETTI =====
+function launchConfetti() {
+  for(let i=0;i<50;i++){
+    let confetti = document.createElement('div');
+    confetti.classList.add('confetti-piece');
+    confetti.style.left = Math.random() * window.innerWidth + 'px';
+    confetti.style.backgroundColor = `hsl(${Math.random()*120},80%,50%)`; // hijau variasi
+    confetti.style.animationDuration = 1 + Math.random()*2 + 's';
+    document.body.appendChild(confetti);
+    setTimeout(()=> confetti.remove(),3000);
   }
-  claimedUsers[username] = true;
+}
 
-  // Confetti
-  confetti({
-    particleCount: 150,
-    spread: 70,
-    origin: { y: 0.6 }
-  });
+// ===== LIVE FEED =====
+const feedList = document.getElementById("feedList");
+const users = ["User123","UserABC","PlayerX","LuckyOne","UserXYZ","Gamer77"];
+const amounts = [10000,20000,25000,50000,15000];
 
-  alert("🎉 Freebet 15.000 berhasil diklaim!");
-});
+function addFeed() {
+  const user = users[Math.floor(Math.random()*users.length)];
+  const amount = amounts[Math.floor(Math.random()*amounts.length)];
+  const li = document.createElement("li");
+  li.textContent = `${user} berhasil claim ${amount.toLocaleString()}`;
+  feedList.prepend(li);
+  if(feedList.children.length > 8) feedList.removeChild(feedList.lastChild);
+}
 
-// Logout
-logoutBtn.addEventListener("click", () => {
-  claimModal.classList.remove("active");
-  document.getElementById("loginCard").style.display = "block";
-  document.getElementById("loginUsername").value = "";
-});
-
-// Close Modal
-document.getElementById("closeModal").addEventListener("click", () => {
-  claimModal.classList.remove("active");
-});
+// Tambahkan feed setiap 2 detik
+setInterval(addFeed, 2000);
