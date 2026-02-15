@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>PINTARBOLA FREEBET</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PINTARBOLA - Bonus Freebet</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
+<div class="event-title">EVENT FREEBET PUSAT</div>
 
-  <h2 class="title">EVENT FREEBET PUSAT</h2>
+<div class="card">
+  <div class="logo">PINTARBOLA</div>
+  <h1>BONUS FREEBET 20.000</h1>
+  <div class="subtitle">Eksklusif untuk Member Baru</div>
 
-  <div class="card">
-    <h1>CLAIM FREEBET 20.000</h1>
-    <p>Masukkan User ID Anda untuk mengambil bonus.</p>
-
-    <input type="text" id="userId" placeholder="Masukkan User ID">
-
-    <button id="claimBtn">AMBIL SEKARANG</button>
-
-    <div id="progressText" class="progress"></div>
-  </div>
-
+  <input type="text" id="userId" placeholder="Masukkan User ID Anda">
+  <button id="claimBtn">AMBIL SEKARANG</button>
 </div>
 
-<!-- POPUP -->
-<div id="popup" class="popup">
-  <div class="popup-content">
-    <h3 id="popupTitle"></h3>
-    <p id="popupMessage"></p>
-    <button onclick="closePopup()">Tutup</button>
-  </div>
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-box" id="modalContent"></div>
+</div>
+
+<!-- LIVE FEED -->
+<div class="live-feed">
+  <h3>Riwayat Klaim Terbaru</h3>
+  <ul id="feedList">
+    <li>User123 berhasil claim 20.000</li>
+    <li>UserABC berhasil claim 20.000</li>
+    <li>PlayerX berhasil claim 20.000</li>
+    <li>LuckyOne berhasil claim 20.000</li>
+  </ul>
 </div>
 
 <script src="script.js"></script>
