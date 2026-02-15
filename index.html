@@ -3,52 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PINTARBOLA - Claim Freebet 15.000</title>
+<title>PINTARBOLA - Bonus Freebet</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-  <!-- Login Card -->
-  <div class="card" id="loginCard">
-    <!-- Logo nyata -->
-    <div class="logo-img">
-      <img src="5da1ec01-89f1-47db-99b3-946b23513c5b.png" alt="Logo PINTARBOLA">
+<!-- CARD BONUS -->
+<div class="card">
+  <div class="logo">PINTARBOLA</div>
+  <h1>BONUS FREEBET 20.000</h1>
+  <div class="subtitle">Eksklusif untuk Member Baru</div>
+  <input type="text" id="userId" placeholder="Masukkan User ID Anda">
+  <button id="claimBtn">AMBIL SEKARANG</button>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-box" id="modalContent">
+    <h2>Memproses Bonus...</h2>
+    <p id="statusText">Menghubungkan ke pusat bonus...</p>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
     </div>
-
-    <div class="subtitle">FREEBET 15.000</div>
-    
-    <input type="text" id="loginUsername" placeholder="Masukkan Username">
-    <button id="loginBtn">LOGIN SEKARANG</button>
-
-    <div class="trust-msg">
-      ✅ Tampilan ini resmi dari sistem pusat PINTARBOLA. Klaim Anda aman dan otomatis terverifikasi.
-    </div>
-
-    <div class="countdown">Promo berakhir dalam: <span id="promoTimer">--:--:--</span></div>
   </div>
 </div>
 
-<!-- Modal Claim -->
-<div class="modal" id="claimModal">
-  <div class="modal-content">
-    <button class="close-btn" id="closeModal">&times;</button>
-    <h2>Selamat datang, <span id="memberName"></span>!</h2>
-    <p>Klik tombol di bawah untuk klaim Freebet 15.000 Anda.</p>
-
-    <button id="claimBtn">CLAIM FREEBET</button>
-    <button class="logout-btn" id="logoutBtn">LOGOUT</button>
-    <button class="cs-btn" onclick="window.open('https://pintarkrn.com/', '_blank')">CS PINTARBOLA</button>
-  </div>
+<!-- LIVE FEED -->
+<div class="live-feed">
+  <h3>Riwayat Klaim Terbaru</h3>
+  <ul id="feedList"></ul>
 </div>
 
-<!-- Floating Chat -->
-<div class="floating-chat" onclick="window.open('https://pintarkrn.com/', '_blank')">
-  <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="chat icon">
-</div>
-
-<!-- Confetti JS -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
