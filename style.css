@@ -9,11 +9,21 @@
 body {
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   background: radial-gradient(circle at top, #003300, #001100 70%);
   overflow: hidden;
   position: relative;
+  padding-top: 30px;
+}
+
+/* JUDUL EVENT */
+.event-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #00cc44;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 /* GLOW ANIMASI */
@@ -26,6 +36,7 @@ body::before {
   animation: rotateGlow 20s linear infinite;
   top: -200px;
   left: -200px;
+  z-index: -1;
 }
 
 @keyframes rotateGlow {
@@ -47,6 +58,7 @@ body::before {
   text-align: center;
   z-index: 2;
   animation: popUp 0.5s ease-out;
+  margin-bottom: 20px;
 }
 
 @keyframes popUp {
@@ -207,7 +219,7 @@ button:hover {
   color: white;
   font-size: 14px;
   overflow: hidden;
-  height: 120px;
+  height: 140px;
 }
 
 .live-feed ul {
